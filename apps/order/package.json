@@ -1,0 +1,34 @@
+{
+  "name": "order",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "name": "order",
+    "targets": {
+      "serve": {
+        "options": {
+          "port": 4201
+        },
+        "dependsOn": [
+          "typecheck",
+          "shell:serve"
+        ]
+      },
+      "build": {
+        "dependsOn": [
+          "^build",
+          "typecheck"
+        ]
+      }
+    }
+  },
+  "exports": {
+    "./Module": {
+      "@base-hub/source": "./src/remote-entry.ts",
+      "types": "./src/remote-entry.ts",
+      "import": "./src/remote-entry.ts",
+      "default": "./src/remote-entry.ts"
+    }
+  },
+  "types": "./src/remote-entry.ts"
+}

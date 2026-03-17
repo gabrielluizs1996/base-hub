@@ -1,0 +1,25 @@
+{
+  "extends": "./tsconfig.base.json",
+  "compileOnSave": false,
+  "files": [],
+  "references": [
+    {
+      "path": "./apps/shell-e2e"
+    },
+    {
+      "path": "./apps/shell"
+    },
+    {
+      "path": "./libs/shared/ui-utils"
+    },
+    {
+      "path": "./libs/shared/tailwind-config"
+    },
+    {
+      "path": "./apps/order-e2e"
+    },
+    {
+      "path": "./apps/order"
+    }
+  ]
+}

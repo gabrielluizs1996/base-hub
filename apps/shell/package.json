@@ -1,0 +1,27 @@
+{
+  "name": "shell",
+  "version": "0.0.1",
+  "private": true,
+  "nx": {
+    "name": "shell",
+    "targets": {
+      "serve": {
+        "options": {
+          "port": 4200
+        },
+        "dependsOn": [
+          "typecheck"
+        ]
+      },
+      "build": {
+        "dependsOn": [
+          "^build",
+          "typecheck"
+        ]
+      }
+    }
+  },
+  "devDependencies": {
+    "order": "*"
+  }
+}
