@@ -20,6 +20,12 @@
     },
     {
       "path": "./apps/order"
+    },
+    {
+      "path": "./libs/shared/ui"
+    },
+    {
+      "path": "./libs/domain"
     }
   ]
 }

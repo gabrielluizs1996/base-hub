@@ -29,5 +29,19 @@
     "eslint.config.cjs",
     "eslint.config.mjs"
   ],
-  "include": ["src/**/*.js", "src/**/*.jsx", "src/**/*.ts", "src/**/*.tsx", "../shell/src/remotes.d.ts"]
+  "include": [
+    "src/**/*.js",
+    "src/**/*.jsx",
+    "src/**/*.ts",
+    "src/**/*.tsx",
+    "../shell/src/remotes.d.ts"
+  ],
+  "references": [
+    {
+      "path": "../../libs/domain/tsconfig.lib.json"
+    },
+    {
+      "path": "../../libs/shared/ui/tsconfig.lib.json"
+    }
+  ]
 }
