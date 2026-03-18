@@ -2,7 +2,10 @@
   "name": "@base-hub/source",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "vercel-build-shell": "nx build shell --prod",
+    "vercel-build-order": "nx build order --prod"
+  },
   "private": true,
   "dependencies": {
     "@module-federation/enhanced": "^0.21.2",
