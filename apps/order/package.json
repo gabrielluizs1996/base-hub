@@ -22,9 +22,6 @@
       }
     }
   },
-  "scripts": {
-    "build": "npx nx build order --prod"
-  },
   "exports": {
     "./Module": {
       "@base-hub/source": "./src/remote-entry.ts",
