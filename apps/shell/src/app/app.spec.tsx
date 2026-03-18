@@ -20,7 +20,7 @@ describe('App', () => {
       </BrowserRouter>,
     );
     expect(
-      getAllByText(new RegExp('Welcome shell', 'gi')).length > 0,
+      getAllByText(new RegExp('Gerenciamento de Ordens', 'gi')).length > 0,
     ).toBeTruthy();
   });
 });
