@@ -1,5 +1,5 @@
 import { BarChart3, ListOrdered, PlusCircle } from "lucide-react";
-import { cn } from "@base-hub/ui-utils";
+import { cn } from "@base-hub/ui";
 
 interface SidebarNavProps {
   onNewOrder: () => void;

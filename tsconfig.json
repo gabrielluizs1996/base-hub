@@ -10,9 +10,6 @@
       "path": "./apps/shell"
     },
     {
-      "path": "./libs/shared/ui-utils"
-    },
-    {
       "path": "./libs/shared/tailwind-config"
     },
     {

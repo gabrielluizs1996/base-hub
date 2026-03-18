@@ -1,6 +1,6 @@
 import { ModuleFederationConfig } from '@nx/module-federation';
 
-const sharedLibs = ['@base-hub/ui', '@base-hub/ui-utils', '@base-hub/domain'];
+const sharedLibs = ['@base-hub/ui', '@base-hub/domain'];
 
 const config: ModuleFederationConfig = {
   name: 'order',

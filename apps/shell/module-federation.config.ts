@@ -2,7 +2,6 @@ import type { ModuleFederationConfig } from "@nx/module-federation";
 
 const sharedLibs = [
   '@base-hub/ui',
-  '@base-hub/ui-utils',
   '@base-hub/domain',
 ];
 

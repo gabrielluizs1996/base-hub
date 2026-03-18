@@ -19,7 +19,6 @@
     "customConditions": ["@base-hub/source"],
     "baseUrl": ".",
     "paths": {
-      "@base-hub/ui-utils": ["libs/shared/ui-utils/src/index.ts"],
       "@base-hub/ui": ["libs/shared/ui/src/index.ts"]
     }
   }

@@ -35,9 +35,6 @@
       "path": "../../libs/shared/tailwind-config/tsconfig.lib.json"
     },
     {
-      "path": "../../libs/shared/ui-utils/tsconfig.lib.json"
-    },
-    {
       "path": "../../libs/shared/ui/tsconfig.lib.json"
     },
     {
