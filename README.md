@@ -1,82 +1,103 @@
-# BaseHub
+<div style="display: flex; align-items: center; gap: 16px; justify-content: center;">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3c83f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chart-column-icon lucide-chart-column"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
+  <h1 style="border: none; margin: 0px; padding: 0px; font-size: 26px"> Base Exchange - NX Monorepo </h1>
+</div>
 
-<a alt="Nx logo" href="https://nx.dev" target="_blank" rel="noreferrer"><img src="https://raw.githubusercontent.com/nrwl/nx/master/images/nx-logo.png" width="45"></a>
+Este projeto faz parte do **desafio técnico para Engenheiro de Software** da **Flowa**, enviado via **Coodesh**. Ele consiste em uma aplicação de exchange de ordens, implementada como um monorepo utilizando **NX**, com múltiplos apps e libs compartilhadas.
 
-✨ Your new, shiny [Nx workspace](https://nx.dev) is almost ready ✨.
+<div align="center">
 
-[Learn more about this workspace setup and its capabilities](https://nx.dev/getting-started/tutorials/react-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects) or run `npx nx graph` to visually explore what was created. Now, let's get you up to speed!
+  [![Live Demo](https://img.shields.io/badge/Live_Demo-white?logo=vercel&logoColor=3c83f6&style=for-the-badge)](https://base-hub-liart.vercel.app/)
 
-## Finish your CI setup
+</div>
 
-[Click here to finish setting up your workspace!](https://cloud.nx.app/connect/GoQ8WgcEGc)
+---
 
+## Tecnologias Utilizadas
 
-## Run tasks
+- **Monorepo**: [NX](https://nx.dev/)
+- **Frontend**: React + TypeScript
+- **State Management**: Zustand
+- **UI Components**: Biblioteca interna baseada em Tailwind CSS
+- **Testes**: Jest + Testing Library + Playwright (E2E)
+- **Estilo**: Tailwind CSS
+- **Ferramentas de Build**: Vite (para apps React) + NX CLI
 
-To run the dev server for your app, use:
+---
 
-```sh
-npx nx serve base-hub
+## Estrutura do Projeto
+
+```
+base-exchange/
+├── apps/
+│   ├── shell/          # Aplicação principal da exchange
+│   └── shell-e2e/      # Testes E2E da aplicação
+│   ├── order/          # Remote da exchange
+│   └── order-e2e/      # Testes E2E do Remote
+├── libs/
+│   ├── domain/         # Lógica de negócios e modelos de dados
+│   └── shared/         # Componentes reutilizáveis e estilos
+└── nx.json             # Configuração do monorepo NX
 ```
 
-To create a production bundle:
+---
 
-```sh
-npx nx build base-hub
+## Instalação
+
+Clone o repositório e instale as dependências:
+
+```bash
+git clone https://github.com/gabrielluizs1996/base-hub.git
+cd base-hub
+npm install
 ```
 
-To see all available targets to run for a project, run:
+> Certifique-se de ter o **Node.js >= 18** e **NX CLI** instalado globalmente (`npm install -g nx`).
 
-```sh
-npx nx show project base-hub
+---
+
+## Scripts Disponíveis
+
+Executados via **NX** ou **npm**:
+
+```bash
+# Rodar a aplicação em modo de desenvolvimento
+nx serve shell
+
+# Build de produção
+npm run build:shell
+
+# Executar testes unitários
+nx teste shell
+
+# Executar testes E2E
+nx e2e shell-e2e
 ```
 
-These targets are either [inferred automatically](https://nx.dev/concepts/inferred-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) or defined in the `project.json` or `package.json` files.
+> Alguns scripts podem ser chamados diretamente pelo NX:
+> `nx serve shell` | `nx build shell` | `nx test domain`
 
-[More about running tasks in the docs &raquo;](https://nx.dev/features/run-tasks?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+---
 
-## Add new projects
+## Funcionalidades Principais
 
-While you could add new projects to your workspace manually, you might want to leverage [Nx plugins](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) and their [code generation](https://nx.dev/features/generate-code?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) feature.
+- Cadastro e listagem de ordens de compra e venda
+- Filtragem e ordenação de ordens
+- Modal de criação e cancelamento de ordens
+- Badges de status e side da ordem
+- Armazenamento de estado via Zustand
+- Layout responsivo utilizando Tailwind CSS
 
-Use the plugin's generator to create new projects.
+---
 
-To generate a new application, use:
+## Observações
 
-```sh
-npx nx g @nx/react:app demo
-```
+- Este projeto é **parte de um desafio técnico**, então algumas soluções podem priorizar **clareza e organização** do que produção em larga escala.
+- O foco está na **estrutura modular do monorepo**, **componentização**, **testes automatizados** e **boa prática em TypeScript/React**.
 
-To generate a new library, use:
+---
 
-```sh
-npx nx g @nx/react:lib mylib
-```
+## Autor
 
-You can use `npx nx list` to get a list of installed plugins. Then, run `npx nx list <plugin-name>` to learn about more specific capabilities of a particular plugin. Alternatively, [install Nx Console](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) to browse plugins and generators in your IDE.
-
-[Learn more about Nx plugins &raquo;](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects) | [Browse the plugin registry &raquo;](https://nx.dev/plugin-registry?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-
-[Learn more about Nx on CI](https://nx.dev/ci/intro/ci-with-nx#ready-get-started-with-your-provider?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Install Nx Console
-
-Nx Console is an editor extension that enriches your developer experience. It lets you run tasks, generate code, and improves code autocompletion in your IDE. It is available for VSCode and IntelliJ.
-
-[Install Nx Console &raquo;](https://nx.dev/getting-started/editor-setup?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-## Useful links
-
-Learn more:
-
-- [Learn more about this workspace setup](https://nx.dev/getting-started/tutorials/react-monorepo-tutorial?utm_source=nx_project&amp;utm_medium=readme&amp;utm_campaign=nx_projects)
-- [Learn about Nx on CI](https://nx.dev/ci/intro/ci-with-nx?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [Releasing Packages with Nx release](https://nx.dev/features/manage-releases?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-- [What are Nx plugins?](https://nx.dev/concepts/nx-plugins?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
-
-And join the Nx community:
-- [Discord](https://go.nx.dev/community)
-- [Follow us on X](https://twitter.com/nxdevtools) or [LinkedIn](https://www.linkedin.com/company/nrwl)
-- [Our Youtube channel](https://www.youtube.com/@nxdevtools)
-- [Our blog](https://nx.dev/blog?utm_source=nx_project&utm_medium=readme&utm_campaign=nx_projects)
+**Gabriel Luiz** – Envio do desafio para **Flowa** via **Coodesh**
+Contato: [Seu e-mail ou LinkedIn opcional]
