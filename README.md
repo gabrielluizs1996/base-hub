@@ -1,7 +1,4 @@
-<div style="display: flex; align-items: center; gap: 16px; justify-content: center;">
-  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#3c83f6" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-chart-column-icon lucide-chart-column"><path d="M3 3v16a2 2 0 0 0 2 2h16"/><path d="M18 17V9"/><path d="M13 17V5"/><path d="M8 17v-3"/></svg>
-  <h1 style="border: none; margin: 0px; padding: 0px; font-size: 26px"> Base Exchange - NX Monorepo </h1>
-</div>
+#  📈 Base Exchange - NX Monorepo
 
 Este projeto faz parte do **desafio técnico para Engenheiro de Software** da **Flowa**, enviado via **Coodesh**. Ele consiste em uma aplicação de exchange de ordens, implementada como um monorepo utilizando **NX**, com múltiplos apps e libs compartilhadas.
 
@@ -100,4 +97,6 @@ nx e2e shell-e2e
 ## Autor
 
 **Gabriel Luiz** – Envio do desafio para **Flowa** via **Coodesh**
-Contato: [Seu e-mail ou LinkedIn opcional]
+Contato:
+
+[![](https://img.shields.io/badge/LinkedIn-gabrielluizs1996-white?logo=inspire&logoColor=blue&style=for-the-badge)](https://www.linkedin.com/in/gabrielluizs1996/)
