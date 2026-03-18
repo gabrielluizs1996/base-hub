@@ -10,8 +10,6 @@ const Order = React.lazy(() => import('order/Module'));
 export function App() {
   const { openNewOrderModal } = useOrderStore();
 
-  console.log("SHELL STORE", useOrderStore.getState());
-
   return (
     <React.Suspense fallback={null}>
       <div className="flex min-h-screen">

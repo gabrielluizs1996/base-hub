@@ -24,9 +24,6 @@ export function App() {
   
   const handleSelectOrder = useCallback((id: string) => setSelectedOrderId(id), []);
   
-  console.log("Modal:", isNewOrderModalOpen);
-  console.log("ORDER STORE", useOrderStore.getState());
-  
   useEffect(() => {
     loadMock();
   }, [loadMock]);
