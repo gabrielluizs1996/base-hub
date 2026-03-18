@@ -25,6 +25,6 @@
     "order": "*"
   },
   "scripts": {
-    "build": "nx build shell --prod"
+    "build": "npx nx build shell --prod"
   }
 }

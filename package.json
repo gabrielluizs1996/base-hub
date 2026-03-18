@@ -3,8 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "vercel-build-shell": "nx build shell --prod",
-    "vercel-build-order": "nx build order --prod"
+    "vercel-build-shell": "npx nx build shell --prod",
+    "vercel-build-order": "npx nx build order --prod"
   },
   "private": true,
   "dependencies": {

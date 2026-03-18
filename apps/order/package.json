@@ -23,7 +23,7 @@
     }
   },
   "scripts": {
-    "build": "nx build order --prod"
+    "build": "npx nx build order --prod"
   },
   "exports": {
     "./Module": {
