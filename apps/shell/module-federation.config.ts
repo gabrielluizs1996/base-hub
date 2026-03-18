@@ -1,16 +1,17 @@
-import { ModuleFederationConfig } from '@nx/module-federation';
+import type { ModuleFederationConfig } from "@nx/module-federation";
 
 const sharedLibs = [
   '@base-hub/ui',
   '@base-hub/ui-utils',
+  '@base-hub/domain', // 🔥 ESSENCIAL
 ];
 
 const config: ModuleFederationConfig = {
-  name: 'shell',
+  name: 'order',
 
-  remotes: [
-    'order',
-  ],
+  exposes: {
+    './Module': './src/app/app.tsx',
+  },
 
   shared: (name, defaultConfig) => {
     if (name === 'react' || name === 'react-dom') {
@@ -20,6 +21,14 @@ const config: ModuleFederationConfig = {
         strictVersion: false,
         requiredVersion: false,
         eager: true,
+      };
+    }
+
+    if (name === 'zustand') {
+      return {
+        ...defaultConfig,
+        singleton: true,
+        strictVersion: false,
       };
     }
 

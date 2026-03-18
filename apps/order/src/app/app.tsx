@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from 'react';
 import { OrderFilters } from './components/OrderFilters';
 import { OrderDatagrid } from './components/OrderDatagrid';
 import { OrderDetailModal } from './components/OrderDetailModal';
+import { CreateOrderDialog } from './components/CreateOrderDialog';
 
 const defaultFilters: OrderFilterTypes = {
   id: "",
@@ -15,13 +16,16 @@ const defaultFilters: OrderFilterTypes = {
 };
 
 export function App() {
-  const { loadMock, getOrder } = useOrderStore();
+  const { loadMock, getOrder, closeNewOrderModal, isNewOrderModalOpen } = useOrderStore();
   const [filters, setFilters] = useState<OrderFilterTypes>(defaultFilters);
   const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
   
   const selectedOrder = selectedOrderId ? getOrder(selectedOrderId) ?? null : null;
   
   const handleSelectOrder = useCallback((id: string) => setSelectedOrderId(id), []);
+  
+  console.log("Modal:", isNewOrderModalOpen);
+  console.log("ORDER STORE", useOrderStore.getState());
   
   useEffect(() => {
     loadMock();
@@ -46,6 +50,7 @@ export function App() {
         </motion.div>
       </div>
       <OrderDetailModal order={selectedOrder} open={!!selectedOrder} onClose={() => setSelectedOrderId(null)} />
+      <CreateOrderDialog open={isNewOrderModalOpen} onClose={closeNewOrderModal} />
     </>
   );
 }

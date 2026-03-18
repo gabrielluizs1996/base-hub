@@ -3,16 +3,19 @@ import { SidebarNav } from '../components/SidebarNav';
 import { Route, Routes } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Header } from '../components/Header';
+import { useOrderStore } from '@base-hub/domain';
 
 const Order = React.lazy(() => import('order/Module'));
 
 export function App() {
-  const [, setCreateOpen] = React.useState(false);
+  const { openNewOrderModal } = useOrderStore();
+
+  console.log("SHELL STORE", useOrderStore.getState());
 
   return (
     <React.Suspense fallback={null}>
       <div className="flex min-h-screen">
-        <SidebarNav onNewOrder={() => setCreateOpen(true)} />
+        <SidebarNav onNewOrder={openNewOrderModal} />
 
         <motion.main
           className="bg-card flex-1 flex flex-col min-w-0"
@@ -21,7 +24,7 @@ export function App() {
           exit={{ opacity: 0, y: -8 }}
           transition={{ duration: 0.3, ease: 'easeOut' }}
         >
-          <Header onNewOrder={() => setCreateOpen(true)} title="Gerenciamento de Ordens" />
+          <Header onNewOrder={openNewOrderModal} title="Gerenciamento de Ordens" />
           <AnimatePresence mode="wait">
             <Routes>
               <Route path="/" element={<Order />} />

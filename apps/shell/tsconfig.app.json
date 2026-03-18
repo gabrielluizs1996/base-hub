@@ -41,6 +41,9 @@
       "path": "../../libs/shared/ui/tsconfig.lib.json"
     },
     {
+      "path": "../../libs/domain/tsconfig.lib.json"
+    },
+    {
       "path": "../order/tsconfig.app.json"
     }
   ]
