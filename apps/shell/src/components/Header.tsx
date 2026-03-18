@@ -14,7 +14,7 @@ export function Header({ onNewOrder, title }: HeaderProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   return (
-    <header className="h-14 bg-card border-b border-muted-foreground flex items-center justify-between px-4 lg:px-6 shrink-0">
+    <header className="h-14 bg-card border-b flex items-center justify-between px-4 lg:px-6 shrink-0">
         <div className="flex items-center gap-3">
           <button className="md:hidden" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
             <Menu className="h-5 w-5" />
