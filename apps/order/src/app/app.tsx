@@ -3,6 +3,7 @@ import { OrderFilters as OrderFilterTypes, useOrderStore } from '@base-hub/domai
 import { useCallback, useEffect, useState } from 'react';
 import { OrderFilters } from './components/OrderFilters';
 import { OrderDatagrid } from './components/OrderDatagrid';
+import { OrderDetailModal } from './components/OrderDetailModal';
 
 const defaultFilters: OrderFilterTypes = {
   id: "",
@@ -14,11 +15,11 @@ const defaultFilters: OrderFilterTypes = {
 };
 
 export function App() {
-  const { loadMock } = useOrderStore();
+  const { loadMock, getOrder } = useOrderStore();
   const [filters, setFilters] = useState<OrderFilterTypes>(defaultFilters);
-  const [_selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
+  const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
   
-  // const selectedOrder = selectedOrderId ? getOrder(selectedOrderId) ?? null : null;
+  const selectedOrder = selectedOrderId ? getOrder(selectedOrderId) ?? null : null;
   
   const handleSelectOrder = useCallback((id: string) => setSelectedOrderId(id), []);
   
@@ -41,10 +42,10 @@ export function App() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.35 }}
         >
-          <span>Teste</span>
           <OrderDatagrid filters={filters} onSelectOrder={handleSelectOrder} />
         </motion.div>
       </div>
+      <OrderDetailModal order={selectedOrder} open={!!selectedOrder} onClose={() => setSelectedOrderId(null)} />
     </>
   );
 }
