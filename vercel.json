@@ -6,7 +6,8 @@
       "use": "@vercel/static-build",
       "config": {
         "distDir": "dist/apps/shell"
-      }
+      },
+      "buildCommand": "npm run vercel-build-shell"
     },
     {
       "src": "apps/order/package.json",
