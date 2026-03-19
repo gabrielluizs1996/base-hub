@@ -1,5 +1,5 @@
 // libs/data-access/src/lib/orders.api.ts
-const API_URL = 'http://localhost:3001/api/orders';
+const API_URL = process.env.NODE_ENV !== 'production' ? 'http://localhost:3001/api/orders' : '/api/orders';
 import { Order, type OrderSide } from '@base-hub/domain';
 
 type OrdersResponse = {
