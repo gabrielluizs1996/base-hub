@@ -1,4 +1,0 @@
-{
-  "buildCommand": "tsc -p api/tsconfig.api.json",
-  "outputDirectory": "dist/api",
-}
