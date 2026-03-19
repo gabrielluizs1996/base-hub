@@ -1,7 +1,12 @@
 import { create } from 'zustand';
-import { Order, type OrderSide } from '../types/order.types.js';
+import { Order, type OrderSide, OrderFilters } from '../types/order.types.js';
 import { generateMockOrders } from '../mocks/generateOrders.js';
-import { matchOrders } from '../core/match-orders.js';
+
+import {
+  cancelOrderApi,
+  createOrderApi,
+  fetchOrdersApi,
+} from '../data-access/data-access.js';
 
 type State = {
   orders: Order[];
@@ -17,13 +22,50 @@ type State = {
     price: number,
     quantity: number,
   ) => void;
+  fetchOrders: (params?: Record<string, any>) => Promise<void>;
+  loading: boolean;
+  error: string | null;
+  filters: OrderFilters;
+  setFilters: (filters: OrderFilters) => void;
+  setPage: (page: number) => void;
+  page: number;
+  limit: number;
+  total: number;
 };
-
-let orderCounter = 1;
 
 export const useOrderStore = create<State>((set, get) => ({
   orders: [],
   isNewOrderModalOpen: false,
+  loading: false,
+  error: null,
+  filters: {
+    id: '',
+    instrument: '',
+    status: 'all',
+    side: 'all',
+    dateFrom: '',
+    dateTo: '',
+  },
+  page: 1,
+  limit: 10,
+  total: 0,
+
+  setFilters: (filters) => {
+    set({ filters, page: 1 });
+    get().fetchOrders(filters); // 🔥 chama API automaticamente
+  },
+
+  setPage: (page) => {
+    set({ page });
+
+    const { filters } = get();
+
+    get().fetchOrders({
+      ...filters,
+      page: page,
+    });
+  },
+
   openNewOrderModal: () => {
     set({ isNewOrderModalOpen: true });
   },
@@ -36,39 +78,36 @@ export const useOrderStore = create<State>((set, get) => ({
 
   getOrder: (id: string) => get().orders.find((o) => o.id === id),
 
-  cancelOrder: (id: string) => {
-    set((state) => ({
-      orders: state.orders.map((o) =>
+  cancelOrder: async (id: string) => {
+    const prevOrders = get().orders;
+
+    // 🟢 optimistic update
+    set({
+      orders: prevOrders.map((o) =>
         o.id === id
           ? {
               ...o,
               status: 'cancelled',
               updatedAt: new Date().toISOString(),
-              statusHistory: [
-                ...o.statusHistory,
-                {
-                  from: o.status,
-                  to: 'cancelled',
-                  timestamp: new Date().toISOString(),
-                  reason: 'Cancelado pelo usuário',
-                },
-              ],
             }
           : o,
       ),
-    }));
+    });
+
+    try {
+      await cancelOrderApi(id);
+    } catch (err) {
+      // 🔴 rollback
+      set({ orders: prevOrders });
+    }
   },
 
-  createOrder: (
-    instrument: string,
-    side: OrderSide,
-    price: number,
-    quantity: number,
-  ) => {
+  createOrder: async (instrument, side, price, quantity) => {
+    const tempId = `TEMP-${Date.now()}`;
     const now = new Date().toISOString();
 
-    const newOrder: Order = {
-      id: `ORD-${String(orderCounter++).padStart(4, '0')}`,
+    const optimisticOrder: Order = {
+      id: tempId,
       instrument,
       side,
       price,
@@ -80,12 +119,57 @@ export const useOrderStore = create<State>((set, get) => ({
       statusHistory: [{ from: null, to: 'open', timestamp: now }],
     };
 
-    set((state) => {
-      const withNew = [newOrder, ...state.orders];
-      return {
-        orders: matchOrders(withNew, newOrder),
-        isNewOrderModalOpen: false,
-      };
+    const prevOrders = get().orders;
+
+    // 🟢 optimistic UI
+    set({
+      orders: [optimisticOrder, ...prevOrders],
+      isNewOrderModalOpen: false,
     });
+
+    try {
+      const created = await createOrderApi({
+        instrument,
+        side,
+        price,
+        quantity,
+      });
+
+      // 🔁 substitui TEMP pelo real
+      set((state) => ({
+        orders: state.orders.map((o) => (o.id === tempId ? created : o)),
+      }));
+    } catch (err) {
+      // 🔴 rollback
+      set({ orders: prevOrders });
+    }
+  },
+
+  fetchOrders: async (params) => {
+    const { filters, page, limit } = get();
+
+    const finalParams = {
+      ...filters,
+      page: page,
+      limit,
+      ...params, // override opcional
+    };
+
+    set({ loading: true, error: null });
+
+    try {
+      const response = await fetchOrdersApi(finalParams);
+
+      set({
+        orders: response.data,
+        total: response.total,
+        loading: false,
+      });
+    } catch (err) {
+      set({
+        error: 'Erro ao carregar ordens',
+        loading: false,
+      });
+    }
   },
 }));
