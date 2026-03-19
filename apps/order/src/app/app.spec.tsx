@@ -1,45 +1,56 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { BrowserRouter } from 'react-router-dom';
 import '@testing-library/jest-dom';
 import App from './app';
 
-describe('Order page', () => {
-  const renderApp = () =>
-    render(
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>,
-    );
+const renderApp = () =>
+  render(
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  );
 
-  it('should render without crashing', () => {
-    const { baseElement } = renderApp();
-    expect(baseElement).toBeInTheDocument();
+describe('Order page', () => {
+  it('should render main structure correctly', () => {
+    renderApp();
 
     expect(screen.getByText(/exportar csv/i)).toBeInTheDocument();
-    expect(screen.getByText(/ordem/i)).toBeInTheDocument();
     expect(screen.getByRole('table')).toBeInTheDocument();
-
-    // filtros básicos
-    expect(screen.getByPlaceholderText(/PETR4/i)).toBeInTheDocument();
-    expect(screen.getByPlaceholderText(/ORD-0001/i)).toBeInTheDocument();
   });
 
-  it('should filter by ID', async () => {
+  it('should filter orders by ID', async () => {
     renderApp();
     const user = userEvent.setup();
-    const input = screen.getByPlaceholderText(/ORD-0001/i);
-    await user.type(input, 'ORD-');
-    const items = screen.getAllByText(/ORD-/i);
-    expect(items[0]).toBeInTheDocument();
+
+    const idInput = screen.getByPlaceholderText(/ORD-0001/i);
+
+    await user.type(idInput, 'ORD-0001');
+
+    expect(screen.getByText('ORD-0001')).toBeInTheDocument();
+
+    // validação REAL de filtro (importante)
+    expect(screen.queryByText('ORD-0002')).not.toBeInTheDocument();
   });
 
-   it('should filter by instrument', async () => {
+  it('should filter orders by instrument', async () => {
     renderApp();
     const user = userEvent.setup();
-    const input = screen.getByPlaceholderText(/PETR4/i);
-    await user.type(input, 'PETR4');
-    const items = screen.getAllByText(/PETR4/i);
-    expect(items[0]).toBeInTheDocument();
+
+    const instrumentInput = screen.getByPlaceholderText(/PETR4/i);
+
+    await user.type(instrumentInput, 'PETR4');
+
+    await waitFor(() => {
+      const rows = screen.getAllByRole('row').slice(1);
+
+      expect(rows.length).toBeGreaterThan(0);
+
+      rows.forEach((row) => {
+        expect(row).toHaveTextContent('PETR4');
+        expect(row).not.toHaveTextContent('VALE3');
+        expect(row).not.toHaveTextContent('ITUB4');
+      });
+    });
   });
 });

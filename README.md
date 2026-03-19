@@ -65,7 +65,7 @@ nx serve shell
 npm run build:shell
 
 # Executar testes unitários
-nx teste shell
+nx test shell
 
 # Executar testes E2E
 nx e2e shell-e2e

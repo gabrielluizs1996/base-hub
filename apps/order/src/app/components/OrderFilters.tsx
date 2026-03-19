@@ -12,16 +12,16 @@ export function OrderFilters({ filters, onChange }: Props) {
   return (
     <div className="flex flex-wrap gap-3 items-end">
       <div className="space-y-1">
-        <label className="text-xs font-medium text-muted-foreground">ID</label>
-        <Input placeholder="ORD-0001" value={filters.id} onChange={(e) => set({ id: e.target.value })} className="h-9 w-32" />
+        <label htmlFor="order-id" className="text-xs font-medium text-muted-foreground">ID</label>
+        <Input id="order-id" placeholder="ORD-0001" value={filters.id} onChange={(e) => set({ id: e.target.value })} className="h-9 w-32" />
       </div>
       <div className="space-y-1">
-        <label className="text-xs font-medium text-muted-foreground">Instrumento</label>
-        <Input placeholder="PETR4" value={filters.instrument} onChange={(e) => set({ instrument: e.target.value })} className="h-9 w-32" />
+        <label htmlFor="order-instrument" className="text-xs font-medium text-muted-foreground">Instrumento</label>
+        <Input id="order-instrument" placeholder="PETR4" value={filters.instrument} onChange={(e) => set({ instrument: e.target.value })} className="h-9 w-32" />
       </div>
       <div className="space-y-1">
-        <label className="text-xs font-medium text-muted-foreground">Status</label>
-        <Select value={filters.status} onValueChange={(v) => set({ status: v as OrderStatus | "all" })}>
+        <label id="order-status-label" className="text-xs font-medium text-muted-foreground">Status</label>
+        <Select aria-labelledby="order-status-label" value={filters.status} onValueChange={(v) => set({ status: v as OrderStatus | "all" })}>
           <SelectTrigger className="h-9 w-32"><SelectValue /></SelectTrigger>
           <SelectContent>
             <SelectItem value="all">Todos</SelectItem>
@@ -33,8 +33,8 @@ export function OrderFilters({ filters, onChange }: Props) {
         </Select>
       </div>
       <div className="space-y-1">
-        <label className="text-xs font-medium text-muted-foreground">Lado</label>
-        <Select value={filters.side} onValueChange={(v) => set({ side: v as OrderSide | "all" })}>
+        <label id="order-side-label" className="text-xs font-medium text-muted-foreground">Lado</label>
+        <Select aria-labelledby="order-side-label" value={filters.side} onValueChange={(v) => set({ side: v as OrderSide | "all" })}>
           <SelectTrigger className="h-9 w-28"><SelectValue /></SelectTrigger>
           <SelectContent>
             <SelectItem value="all">Todos</SelectItem>
@@ -44,12 +44,12 @@ export function OrderFilters({ filters, onChange }: Props) {
         </Select>
       </div>
       <div className="space-y-1">
-        <label className="text-xs font-medium text-muted-foreground">De</label>
-        <Input type="date" value={filters.dateFrom} onChange={(e) => set({ dateFrom: e.target.value })} className="h-9 w-36" />
+        <label id="order-date-from-label" className="text-xs font-medium text-muted-foreground">De</label>
+        <Input aria-labelledby="order-date-from-label" type="date" value={filters.dateFrom} onChange={(e) => set({ dateFrom: e.target.value })} className="h-9 w-36" />
       </div>
       <div className="space-y-1">
-        <label htmlFor='date-end' className="text-xs font-medium text-muted-foreground">Até</label>
-        <Input id='date-end' type="date" value={filters.dateTo} onChange={(e) => set({ dateTo: e.target.value })} className="h-9 w-36" />
+        <label id="order-date-to-label" className="text-xs font-medium text-muted-foreground">Até</label>
+        <Input aria-labelledby="order-date-to-label" type="date" value={filters.dateTo} onChange={(e) => set({ dateTo: e.target.value })} className="h-9 w-36" />
       </div>
     </div>
   );
