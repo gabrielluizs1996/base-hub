@@ -1,9 +1,4 @@
 {
   "buildCommand": "tsc -p api/tsconfig.api.json",
   "outputDirectory": "dist/api",
-  "functions": {
-    "api/**/*.ts": {
-      "runtime": "nodejs"
-    }
-  }
 }

@@ -20,9 +20,5 @@
     "paths": {
       "@base-hub/ui": ["libs/shared/ui/src/index.ts"]
     }
-  },
-  "include": [
-    "api/**/*.ts",
-    "apps/**/*.ts"
-  ]
+  }
 }
