@@ -1,23 +1,15 @@
 import { motion } from 'framer-motion';
-import { OrderFilters as OrderFilterTypes, useOrderStore } from '@base-hub/domain';
+import { useOrderStore } from '@base-hub/domain';
 import { useCallback, useEffect, useState } from 'react';
 import { OrderFilters } from './components/OrderFilters';
 import { OrderDatagrid } from './components/OrderDatagrid';
 import { OrderDetailModal } from './components/OrderDetailModal';
 import { CreateOrderDialog } from './components/CreateOrderDialog';
 
-const defaultFilters: OrderFilterTypes = {
-  id: "",
-  instrument: "",
-  status: "all",
-  side: "all",
-  dateFrom: "",
-  dateTo: "",
-};
 
 export function App() {
-  const { loadMock, getOrder, closeNewOrderModal, isNewOrderModalOpen } = useOrderStore();
-  const [filters, setFilters] = useState<OrderFilterTypes>(defaultFilters);
+  const { fetchOrders, getOrder, closeNewOrderModal, isNewOrderModalOpen } = useOrderStore();
+  const { filters, setFilters } = useOrderStore();
   const [selectedOrderId, setSelectedOrderId] = useState<string | null>(null);
   
   const selectedOrder = selectedOrderId ? getOrder(selectedOrderId) ?? null : null;
@@ -25,8 +17,8 @@ export function App() {
   const handleSelectOrder = useCallback((id: string) => setSelectedOrderId(id), []);
   
   useEffect(() => {
-    loadMock();
-  }, [loadMock]);
+    fetchOrders();
+  }, [fetchOrders]);
 
   return (
     <>
