@@ -1,9 +1,13 @@
 import { test, expect } from '@playwright/test';
 
-test('should load app and show main content', async ({ page }) => {
-  await page.goto('/');
+test.describe('should load app and show main content', async () => {
+  test.beforeEach(async ({ page }) => {
+    await page.goto('/');
+  });
 
-  await expect(
-    page.getByRole('heading', { name: /Gerenciamento de Ordens/i }),
-  ).toBeVisible();
+  test('should display main heading', async ({ page }) => {
+    await expect(
+      page.getByRole('heading', { name: /Gerenciamento de Ordens/i }),
+    ).toBeVisible();
+  });
 });

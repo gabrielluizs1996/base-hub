@@ -48,8 +48,8 @@ export function OrderFilters({ filters, onChange }: Props) {
         <Input type="date" value={filters.dateFrom} onChange={(e) => set({ dateFrom: e.target.value })} className="h-9 w-36" />
       </div>
       <div className="space-y-1">
-        <label className="text-xs font-medium text-muted-foreground">Até</label>
-        <Input type="date" value={filters.dateTo} onChange={(e) => set({ dateTo: e.target.value })} className="h-9 w-36" />
+        <label htmlFor='date-end' className="text-xs font-medium text-muted-foreground">Até</label>
+        <Input id='date-end' type="date" value={filters.dateTo} onChange={(e) => set({ dateTo: e.target.value })} className="h-9 w-36" />
       </div>
     </div>
   );
