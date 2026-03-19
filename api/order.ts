@@ -1,4 +1,5 @@
-import serverless from 'serverless-http';
-import app from '../apps/api/src';
+import type { VercelRequest, VercelResponse } from '@vercel/node';
 
-export default serverless(app);
+export default function handler(req: VercelRequest, res: VercelResponse) {
+  res.status(200).json({ message: 'OK' });
+}
