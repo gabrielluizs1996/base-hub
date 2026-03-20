@@ -1,5 +1,9 @@
 import { Request, Response } from 'express';
-import { getOrders, createOrder, cancelOrder } from '../services/orders.service';
+import {
+  getOrders,
+  createOrder,
+  cancelOrder,
+} from '../services/orders.service';
 import type { OrderSide, OrderStatus } from 'libs/domain/src';
 
 type SortableFields =
@@ -21,10 +25,26 @@ type OrdersQuery = {
   order?: 'asc' | 'desc';
   page?: string;
   limit?: string;
+  dateFrom?: Date | null;
+  dateTo?: Date | null;
 };
 
+const normalizeQuery = (q: any): OrdersQuery => ({
+  id: q.id || undefined,
+  instrument: q.instrument || undefined,
+  status: q.status && q.status !== 'all' ? q.status : undefined,
+  side: q.side && q.side !== 'all' ? q.side : undefined,
+  sortBy: q.sortBy,
+  order: q.order,
+  page: q.page,
+  limit: q.limit,
+  dateFrom: q.dateFrom ? new Date(`${q.dateFrom}T00:00:00.000Z`) : null,
+  dateTo: q.dateTo ? new Date(`${q.dateTo}T23:59:59.999Z`) : null,
+});
+
 export const listOrders = (req: Request, res: Response) => {
-  const result = getOrders(req.query as OrdersQuery);
+  const query = normalizeQuery(req.query);
+  const result = getOrders(query);
   res.json(result);
 };
 

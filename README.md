@@ -28,6 +28,7 @@ Este projeto faz parte do **desafio técnico para Engenheiro de Software** da **
 base-exchange/
 ├── apps/
 │   ├── shell/          # Aplicação principal da exchange
+│   ├── api/            # Backend com Node.js + Express
 │   └── shell-e2e/      # Testes E2E da aplicação
 │   ├── order/          # Remote da exchange
 │   └── order-e2e/      # Testes E2E do Remote
@@ -60,9 +61,11 @@ Executados via **NX** ou **npm**:
 ```bash
 # Rodar a aplicação em modo de desenvolvimento
 nx serve shell
+nx serve api
 
 # Build de produção
-npm run build:shell
+npx nx build shell
+npx nx build api
 
 # Executar testes unitários
 nx test shell
@@ -71,18 +74,23 @@ nx test shell
 nx e2e shell-e2e
 ```
 
-> Alguns scripts podem ser chamados diretamente pelo NX:
+> Alguns scripts podem ser chamados diretamente pelo NX caso esteja instalado globalmente:
+> `npm add --global nx`
 > `nx serve shell` | `nx build shell` | `nx test domain`
 
 ---
 
 ## Funcionalidades Principais
 
-- Cadastro e listagem de ordens de compra e venda
-- Filtragem e ordenação de ordens
+- Cadastro, listagem e cancelamento de ordens de compra e venda
+- Backend com Node.js + Express para gerenciamento das ordens
+- API REST para criação, consulta e atualização de ordens
+- Filtragem e ordenação de ordens (instrumento, status, side e data)
+- Suporte a paginação no backend
 - Modal de criação e cancelamento de ordens
 - Badges de status e side da ordem
-- Armazenamento de estado via Zustand
+- Estado global gerenciado com Zustand no frontend
+- Integração frontend ↔ backend via API REST
 - Layout responsivo utilizando Tailwind CSS
 
 ---

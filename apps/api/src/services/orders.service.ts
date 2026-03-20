@@ -27,6 +27,8 @@ type OrdersQuery = {
   order?: 'asc' | 'desc';
   page?: string;
   limit?: string;
+  dateFrom?: Date | null;
+  dateTo?: Date | null;
 };
 
 const sortMap: Record<SortableFields, (o: Order) => any> = {
@@ -82,6 +84,16 @@ export const getOrders = (query: OrdersQuery) => {
 
   const start = (page - 1) * limit;
   const end = start + limit;
+
+  if (query.dateFrom) {
+    const from = new Date(query.dateFrom);
+    result = result.filter((o) => new Date(o.createdAt) >= from);
+  }
+
+  if (query.dateTo) {
+    const to = new Date(query.dateTo);
+    result = result.filter((o) => new Date(o.createdAt) <= to);
+  }
 
   return {
     data: result.slice(start, end),
