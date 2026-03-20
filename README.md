@@ -40,6 +40,17 @@ base-exchange/
 
 ---
 
+## Arquitetura
+
+Este projeto segue uma arquitetura baseada em monorepo com NX:
+
+- apps: aplicações executáveis (frontend e backend)
+- libs: módulos compartilhados entre aplicações
+  - domain: regras de negócio e tipos
+  - shared: UI e utilitários reutilizáveis
+
+---
+
 ## Instalação
 
 Clone o repositório e instale as dependências:
@@ -60,12 +71,12 @@ Executados via **NX** ou **npm**:
 
 ```bash
 # Rodar a aplicação em modo de desenvolvimento
-nx serve shell
-nx serve api
 
-# Build de produção
-npx nx build shell
-npx nx build api
+# Frontend
+nx serve shell
+
+# Backend
+nx serve api
 
 # Executar testes unitários
 nx test shell
@@ -80,25 +91,38 @@ nx e2e shell-e2e
 
 ---
 
-## Funcionalidades Principais
+## Funcionalidades
 
-- Cadastro, listagem e cancelamento de ordens de compra e venda
-- Backend com Node.js + Express para gerenciamento das ordens
-- API REST para criação, consulta e atualização de ordens
-- Filtragem e ordenação de ordens (instrumento, status, side e data)
-- Suporte a paginação no backend
-- Modal de criação e cancelamento de ordens
-- Badges de status e side da ordem
-- Estado global gerenciado com Zustand no frontend
-- Integração frontend ↔ backend via API REST
-- Layout responsivo utilizando Tailwind CSS
+### 📦 Gestão de Ordens
+- Criação, listagem e cancelamento de ordens
+- Status de execução (open, partial, executed, cancelled)
+
+### 🔍 Filtros e Consulta
+- Filtro por instrumento, status, side e data
+- Ordenação dinâmica
+- Paginação no backend
+
+### 🎨 Interface
+- Modal de criação de ordens
+- Badges de status e side
+- Layout responsivo com Tailwind
+
+### ⚙️ Arquitetura
+- Estado global com Zustand
+- Comunicação via API REST
+- Monorepo com NX e libs compartilhadas
 
 ---
 
-## Observações
+## Decisões Técnicas
 
-- Este projeto é **parte de um desafio técnico**, então algumas soluções podem priorizar **clareza e organização** do que produção em larga escala.
-- O foco está na **estrutura modular do monorepo**, **componentização**, **testes automatizados** e **boa prática em TypeScript/React**.
+- Uso de Zustand para simplicidade e performance no estado global
+- Backend em Express para simular uma API real de exchange
+- NX para isolamento de domínios, reutilização de código e escalabilidade do monorepo
+
+Por se tratar de um desafio técnico, a escolha pelo uso de um monorepo com NX foi feita de forma intencional para demonstrar uma arquitetura mais escalável e próxima de cenários reais de produtos em crescimento.
+Em vez de uma abordagem monolítica tradicional, a aplicação foi estruturada em domínios separados (apps e libs compartilhadas), permitindo melhor organização, isolamento de responsabilidades e evolução independente das partes do sistema.
+Apesar do escopo atual conter uma aplicação principal e um backend, a arquitetura foi pensada para suportar facilmente a expansão do sistema, incluindo novos frontends, serviços backend adicionais e compartilhamento de regras de negócio entre eles.
 
 ---
 
